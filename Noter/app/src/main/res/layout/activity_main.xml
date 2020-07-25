@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main_layout"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/notes_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/buttonLabel"
+        android:layout_marginBottom="24dp"
+        android:padding="24dp"
+        android:text="@string/notes"
+        android:textSize="@dimen/empty_text_size"
+        app:layout_constraintBottom_toTopOf="@id/recyclerview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="72dp"
+        android:padding="@dimen/big_padding"
+        app:layout_constraintBottom_toTopOf="@+id/fab_delete"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/notes_text"
+        tools:listitem="@layout/recyclerview_item" />
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/recyclerview"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/fab"
+        android:text="@string/empty_notes"
+        android:textSize="@dimen/empty_text_size"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/add_word"
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        android:visibility="invisible"
+        android:contentDescription="@string/delete_all_notes"
+        android:src="@drawable/ic_delete_black_24dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
