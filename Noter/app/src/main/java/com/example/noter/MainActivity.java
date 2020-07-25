@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MotionEventCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -20,11 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +29,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WordViewModel mViewModel;
+    private NoteViewModel mViewModel;
     private int wordsCount;
     public static final int NEW_WORD_ACTIVITY_REQUEST = 1;
 
@@ -44,19 +41,19 @@ public class MainActivity extends AppCompatActivity {
         wordsCount = 0;
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        WordListAdapter adapter = new WordListAdapter(this);
+        NoteListAdapter adapter = new NoteListAdapter(this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mViewModel = new ViewModelProvider(this).get(WordViewModel.class);
-        mViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+        mViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+        mViewModel.getAllWords().observe(this, new Observer<List<Note>>() {
             @Override
-            public void onChanged(List<Word> words) {
-                Log.i("MainActivity", "ViewModel data changed " + words.size());
-                Collections.reverse(words);
-                wordsCount = words.size();
-                adapter.setWords(words);
+            public void onChanged(List<Note> notes) {
+                Log.i("MainActivity", "ViewModel data changed " + notes.size());
+                Collections.reverse(notes);
+                wordsCount = notes.size();
+                adapter.setWords(notes);
                 controlTextShowing(wordsCount);
             }
         });
@@ -69,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewNoteActivity.class);
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST);
             }
         });
@@ -112,16 +109,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                Word word = adapter.getWordAtPosition(position);
+                Note note = adapter.getWordAtPosition(position);
                 Snackbar snack = Snackbar.make(findViewById(android.R.id.content), "You deleted " +
-                        word.getWord(), Snackbar.LENGTH_LONG);
+                        note.getWord(), Snackbar.LENGTH_LONG);
                 View view = snack.getView();
                 view.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.darkBackground));
                 FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
                 params.gravity = Gravity.TOP;
                 view.setLayoutParams(params);
                 snack.show();
-                mViewModel.delete(word);
+                mViewModel.delete(note);
             }
         });
         helper.attachToRecyclerView(recyclerView);
@@ -131,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
-            Word word = new Word(Objects.requireNonNull(data.
-                    getStringExtra(NewWordActivity.EXTRA_REPLY)));
+            Note note = new Note(Objects.requireNonNull(data.
+                    getStringExtra(NewNoteActivity.EXTRA_REPLY)));
             Log.i("MainActivity", "before inserting word");
-            mViewModel.insert(word);
+            mViewModel.insert(note);
             findViewById(R.id.empty_text).setVisibility(View.INVISIBLE);
         } else {
             Snackbar snack = Snackbar.make(findViewById(android.R.id.content), R.string.empty_not_saved, Snackbar.LENGTH_LONG);

@@ -5,41 +5,40 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.Collections;
 import java.util.List;
 
-public class WordRepository {
+public class NoteRepository {
 
-    private WordDao mWordDao;
-    private LiveData<List<Word>> mAllWords;
+    private NoteDao mWordDao;
+    private LiveData<List<Note>> mAllWords;
 
-    WordRepository(Application application) {
-        WordRoomDatabase db = WordRoomDatabase.getDatabase(application);
+    NoteRepository(Application application) {
+        NoteRoomDatabase db = NoteRoomDatabase.getDatabase(application);
         mWordDao = db.wordDao();
         mAllWords = mWordDao.getAlphabetizedWords();
     }
 
-    LiveData<List<Word>> getAllWords() {
+    LiveData<List<Note>> getAllWords() {
         Log.i("WordRepository", "getting all words");
         return mAllWords;
     }
 
-    void insert(Word word) {
-        WordRoomDatabase.databaseWriteExecutor.execute(() -> {
+    void insert(Note note) {
+        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
             Log.i("WordRepository", "before inserting word");
-            mWordDao.insert(word);
+            mWordDao.insert(note);
             });
     }
 
     void deleteAllWords() {
-        WordRoomDatabase.databaseWriteExecutor.execute(() -> {
+        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
             mWordDao.deleteAll();
         });
     }
 
-    void delete(Word word) {
-        WordRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mWordDao.delete(word);
+    void delete(Note note) {
+        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mWordDao.delete(note);
         });
     }
 }

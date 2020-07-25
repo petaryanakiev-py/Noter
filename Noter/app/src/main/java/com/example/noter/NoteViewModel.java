@@ -9,32 +9,32 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class WordViewModel extends AndroidViewModel {
+public class NoteViewModel extends AndroidViewModel {
 
-    private WordRepository mWordRepository;
-    private LiveData<List<Word>> mAllWords;
+    private NoteRepository mNoteRepository;
+    private LiveData<List<Note>> mAllWords;
 
-    public WordViewModel(@NonNull Application application) {
+    public NoteViewModel(@NonNull Application application) {
         super(application);
-        mWordRepository = new WordRepository(application);
-        mAllWords = mWordRepository.getAllWords();
+        mNoteRepository = new NoteRepository(application);
+        mAllWords = mNoteRepository.getAllWords();
     }
 
-    LiveData<List<Word>> getAllWords() {
+    LiveData<List<Note>> getAllWords() {
         Log.i("WordViewModel", "getting all words");
         return mAllWords;
     }
 
-    public void insert(Word word) {
+    public void insert(Note note) {
         Log.i("WordViewModel", "before inserting word");
-        mWordRepository.insert(word);
+        mNoteRepository.insert(note);
     }
 
     public void deleteAllWords() {
-        mWordRepository.deleteAllWords();
+        mNoteRepository.deleteAllWords();
     }
 
-    public void delete(Word word) {
-        mWordRepository.delete(word);
+    public void delete(Note note) {
+        mNoteRepository.delete(note);
     }
 }

@@ -6,22 +6,21 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
-public interface WordDao {
+public interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Word word);
+    void insert(Note note);
 
-    @Query("DELETE FROM word_table")
+    @Query("DELETE FROM note_table")
     void deleteAll();
 
-    @Query("SELECT * FROM word_table")
-    LiveData<List<Word>> getAlphabetizedWords();
+    @Query("SELECT * FROM note_table")
+    LiveData<List<Note>> getAlphabetizedWords();
 
     @Delete
-    void delete(Word word);
+    void delete(Note note);
 }

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
+public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.WordViewHolder> {
 
     class WordViewHolder extends RecyclerView.ViewHolder {
 
@@ -24,9 +24,9 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     }
 
     private final LayoutInflater mLayoutInflater;
-    private List<Word> mWords;
+    private List<Note> mNotes;
 
-    WordListAdapter(Context context) {
+    NoteListAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -39,29 +39,29 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
-        if (mWords != null) {
-            Word current = mWords.get(position);
+        if (mNotes != null) {
+            Note current = mNotes.get(position);
             holder.wordItemView.setText(current.getWord());
         } else {
             holder.wordItemView.setText(R.string.no_word);
         }
     }
 
-    void setWords(List<Word> words) {
-        mWords = words;
+    void setWords(List<Note> notes) {
+        mNotes = notes;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (mWords != null) {
-            return mWords.size();
+        if (mNotes != null) {
+            return mNotes.size();
         } else {
             return 0;
         }
     }
 
-    public Word getWordAtPosition(int position) {
-        return mWords.get(position);
+    public Note getWordAtPosition(int position) {
+        return mNotes.get(position);
     }
 }

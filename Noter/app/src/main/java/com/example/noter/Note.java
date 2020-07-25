@@ -5,15 +5,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "word_table")
-public class Word {
+@Entity(tableName = "note_table")
+public class Note {
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "word")
+    @ColumnInfo(name = "note")
     private String mWord;
 
-    public Word(@NonNull String word) {
+    public Note(@NonNull String word) {
         this.mWord = word;
     }
 

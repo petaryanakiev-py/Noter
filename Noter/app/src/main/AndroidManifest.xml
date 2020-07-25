@@ -13,7 +13,7 @@
             android:name=".EditNoteActivity"
             android:label="@string/title_activity_edit_note"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".NewWordActivity" />
+        <activity android:name=".NewNoteActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/action_bar_heading">
